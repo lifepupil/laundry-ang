@@ -1,24 +1,13 @@
 'use strict';
 
-angular.module('poseidon')
+angular.module('laundry')
 .controller('NavCtrl', function($rootScope, $scope, $state, $firebaseObject, $http, User){
   function goHome(){
     $state.go('home');
   }
 
   function getDisplayName(data){
-    switch(data.provider){
-      case 'password':
-        return data.password.email;
-      case 'twitter':
-        return data.twitter.username;
-      case 'google':
-        return data.google.displayName;
-      case 'facebook':
-        return data.facebook.displayName;
-      case 'github':
         return data.github.displayName;
-    }
   }
 
   $scope.afAuth.$onAuth(function(data){
