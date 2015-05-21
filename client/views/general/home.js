@@ -2,7 +2,7 @@
 
 angular.module('laundry')
 .controller('Home', function($scope, $state, Machine, $interval, $window, $rootScope){
-  $interval(checkStatus, 300000);
+  $interval(checkStatus, 3000);
   checkStatus();
   // var socket = $window.io.connect('http://localhost:8000');
   // socket.on('connect', function(){

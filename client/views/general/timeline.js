@@ -6,22 +6,26 @@ angular.module('laundry')
 
 
   // results of event listener for changes in machine history
-  var newItems = $rootScope.washerHistory;
-  console.log('newItem2', newItems.length);
-  // Create a DataSet (allows two way data-binding)
-  var items = [
-    {id: 4, content: 'Jon', title: 'washer', start: new Date(1432149665589), end: new Date(1432151394586)},
-  ];
+  var newWasherItems = $rootScope.washerHistory;
+  var newDryerItems = $rootScope.dryerHistory;
+  console.log('newItem2', newWasherItems.length);
+  var items = [];
 
-  var newItem = {id: 7, content: 'Christian', title: 'dryer', start: new Date(1432153765589), end: new Date(1432157494586)};
-  items.push(newItem);
-  if(newItems.length > 0){
-    for(var i = 0; i < newItems.length; i++){
-      items.push(newItems[i]);
+  if(newWasherItems.length > 0){
+    for(var i = 0; i < newWasherItems.length; i++){
+      items.push(newWasherItems[i]);
     }
   } else {
-    items.push(newItems);
+    items.push(newWasherItems);
   }
+  if(newDryerItems.length > 0){
+    for(var i = 0; i < newDryerItems.length; i++){
+      items.push(newDryerItems[i]);
+    }
+  } else {
+    items.push(newDryerItems);
+  }
+
   var itemsVis = new vis.DataSet(items);
 
   var options = {
