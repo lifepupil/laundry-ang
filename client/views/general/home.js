@@ -1,9 +1,14 @@
 'use strict';
 
 angular.module('laundry')
-.controller('Home', function($scope, $state, Machine){
-checkWashState();
-checkDryState();
+.controller('Home', function($scope, $state, Machine, $interval){
+  $interval(checkStatus, 3000);
+  checkStatus();
+  
+  function checkStatus(){
+    checkWashState();
+    checkDryState();
+  }
 
   function checkWashState(){
     Machine.checkState('washer1')
@@ -19,4 +24,13 @@ checkDryState();
       $scope.dryStatus = response.data;
     });
   }
+  $scope.changeState = function(machine){
+    console.log(machine);
+    Machine.changeState(machine)
+    .then(function(response){
+      // console.log(response);
+      // if(machine === 'dryer1')
+      checkStatus();
+    });
+  };
 });
