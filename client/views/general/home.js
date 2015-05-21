@@ -6,7 +6,7 @@ angular.module('laundry')
   checkStatus();
   var socket = $window.io.connect('http://localhost:8000');
   socket.on('connect', function(){
-    console.log('connected');
+    console.log('connected!!!!!');
   });
   // $scope.$on('socket:broadcast', function(event, data){
   //   console.log('message received', event.name);
