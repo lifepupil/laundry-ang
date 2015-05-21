@@ -1,13 +1,13 @@
 'use strict';
 
 angular.module('laundry')
-.controller('Home', function($scope, $state, Machine, $interval, $window){
+.controller('Home', function($scope, $state, Machine, $interval, $window, $rootScope){
   $interval(checkStatus, 300000);
   checkStatus();
-  var socket = $window.io.connect('http://localhost:8000');
-  socket.on('connect', function(){
-    console.log('connected!!!!!');
-  });
+  // var socket = $window.io.connect('http://localhost:8000');
+  // socket.on('connect', function(){
+  //   console.log('connected!!!!!');
+  // });
   // $scope.$on('socket:broadcast', function(event, data){
   //   console.log('message received', event.name);
   //
@@ -26,22 +26,26 @@ angular.module('laundry')
   function checkWashState(){
     Machine.checkState('washer1')
     .then(function(response){
-      $scope.washStatus = response.data;
+      $rootScope.washStatus = response.data.state;
+      $rootScope.washerHistory = response.data.useHistory;
+      console.log('check wash state - response.data.useHistory', response.data.useHistory);
     });
   }
   function checkDryState(){
     Machine.checkState('dryer1')
     .then(function(response){
-      $scope.dryStatus = response.data;
+      $rootScope.dryStatus = response.data.state;
+      $rootScope.dryerHistory = response.data.useHistory;
+      console.log('check dry state - response.data.useHistory', response.data.useHistory);
     });
   }
   $scope.changeState = function(machine){
-    console.log(machine);
+    console.log('THIS IS machine in scope change state', machine);
     Machine.changeState(machine)
     .then(function(response){
       // console.log(response);
       // if(machine === 'dryer1')
-      checkStatus();
+      // checkStatus();
     });
   };
 });
